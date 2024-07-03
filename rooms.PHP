@@ -83,7 +83,7 @@
         <div class="col-lg-9 col-md-12 px-4">
 
         <?php
-          $room_res = select("SELECT * FROM `rooms` WHERE `status`=? AND `removed`=?",[1,0],'ii');
+          $room_res = select("SELECT * FROM `rooms` WHERE `status`=? AND `removed`=? ",[1,0],'ii');// ORDER BY `id` DESC LIMIT 3
 
           while($room_data = mysqli_fetch_assoc($room_res))
           {
@@ -95,7 +95,7 @@
             $features_data = "";
             while($fea_row = mysqli_fetch_assoc($fea_q))
             {
-              $features_data .="<span class='badge rounded-pill bg-light text-dark  text-wrap'>
+              $features_data .="<span class='badge rounded-pill bg-light text-dark  text-wrap me-1 mb-1'>
                $fea_row[name]
               </span> ";
 
@@ -110,7 +110,7 @@
               $facilities_data = "";
               while($fac_row = mysqli_fetch_assoc($fac_q))
             {
-              $facilities_data .="<span class='badge rounded-pill bg-light text-dark  text-wrap'>
+              $facilities_data .="<span class='badge rounded-pill bg-light text-dark  text-wrap me-1 mb-1'>
                $fac_row[name]
               </span> ";
 
@@ -158,9 +158,9 @@
 
                   </div>
                   <div class="col-md-2 mt-lg-0 nt-md-0 mt-4 text-center ">
-                    <h6 class="mb-4">rs:4500 per night</h6>
+                    <h6 class="mb-4">rs: $room_data[price]/= Per Night</h6>
                     <a href="#" class="btn btn-sm w-100 text-white custom-bg shadow-none mb-2">Book Now</a>
-                    <a href="#" class="btn btn-sm w-100 btn-outline-dark shadow-none">More Details</a>
+                    <a href="room_details.php?id=$room_data[id]" class="btn btn-sm w-100 btn-outline-dark shadow-none">More Details</a>
                   </div>
                 </div>
               </div>
@@ -168,63 +168,6 @@
 
           }
         ?>
-
-              <div class="card mb-4 border-0 shadow " >
-                <div class="row g-0 p-3 align-items-center">
-                  <div class="col-md-5 mb-lg-0 mb-md-0 mb-3">
-                    <img src="images/rooms/1.jpg" class="img-fluid rounded">
-                  </div>
-                  <div class="col-md-5 px-lg-3 px-mb-3 px-0">
-                    <h5 class="mb-3">Simple Rooms</h5>
-                    <div class="features mb-3">
-                        <h6 class="mb-1">Features</h6>
-                        <span class="badge rounded-pill bg-light text-dark  text-wrap ">
-                          2 Rooms
-                        </span>
-                        <span class="badge rounded-pill bg-light text-dark  text-wrap ">
-                          1 Bathroom
-                        </span>
-                        <span class="badge rounded-pill bg-light text-dark  text-wrap ">
-                          1 Balcony
-                        </span>
-                        <span class="badge rounded-pill bg-light text-dark  text-wrap ">
-                          1 Kitchen
-                        </span>
-                      </div>
-                      <div class="facilities mb-3">
-                        <h6 class="mb-1">Facilities</h6>
-                        <span class="badge rounded-pill bg-light text-dark  text-wrap ">
-                          Television
-                        </span>
-                        <span class="badge rounded-pill bg-light text-dark  text-wrap ">
-                          AC
-                        </span>
-                        <span class="badge rounded-pill bg-light text-dark  text-wrap ">
-                          Hot Water
-                        </span>
-                        <span class="badge rounded-pill bg-light text-dark  text-wrap ">
-                          Wifi
-                        </span>
-                      </div>
-                      <div class="guests ">
-                        <h6 class="mb-1">Guest</h6>
-                        <span class="badge rounded-pill bg-light text-dark  text-wrap ">
-                          5 Adults
-                        </span>
-                        <span class="badge rounded-pill bg-light text-dark  text-wrap ">
-                         4 Childern
-                        </span>
-                        
-                      </div>
-
-                  </div>
-                  <div class="col-md-2 mt-lg-0 nt-md-0 mt-4 text-center ">
-                    <h6 class="mb-4">rs:4500 per night</h6>
-                    <a href="#" class="btn btn-sm w-100 text-white custom-bg shadow-none mb-2">Book Now</a>
-                    <a href="#" class="btn btn-sm w-100 btn-outline-dark shadow-none">More Details</a>
-                  </div>
-                </div>
-              </div>
 
         </div>
 
