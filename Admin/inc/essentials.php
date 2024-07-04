@@ -9,6 +9,8 @@ define ('FACILITIES_IMG_PATH',SITE_URL.'images/facilities/');
 define ('ROOMS_IMG_PATH',SITE_URL.'images/rooms/');
 //define ('USERS_IMG_PATH',SITE_URL.'images/users/');
 
+//sendgrid api key 
+define('SENDGRID_API_KEY',"mlsn.ff8b48b4d045eedf08e680c7907860f50759487a1cce7305bfbcf85d77af4845");
 
 //backend purpose needs data 
 

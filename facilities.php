@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kaluwara Resort - Facilities</title>
+    <title><?php echo $settings_r['site_title'] ?>- Facilities</title>
 
     <?php require('inc/links.php'); ?>
    
