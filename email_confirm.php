@@ -1,8 +1,9 @@
 <?php
-require('../Admin/inc/db_config.php');
-require('../Admin/inc/essentials.php');
 
-    if(isset($_GET,'email_confirmation'))
+require('Admin/inc/db_config.php');
+require('Admin/inc/essentials.php');
+
+ if(isset($_GET['email_confirmation']))
     {
         $data = filtration($_GET);
 

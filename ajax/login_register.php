@@ -1,37 +1,61 @@
 <?php
 
-    require('../inc/sendgrid/sendgrid-php.php');
+    require ('../Admin/inc/db_config.php');
+    require ('../Admin/inc/essentials.php');
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\SMTP;
+    use PHPMailer\PHPMailer\Exception;
+
+
+   session_start();
 
 
     function send_mail($uemail,$name,$token)
     {
-        $email = new\SendGrid\Mail\Mail();
-        $email->setFrom("sajith.lexmo@gmail.com","Kaluwara Web");
-        $email->setSubject("Account Varification");
+        require ('../PhpMailer/Exception.php');
+        require ('../PhpMailer/PHPMailer.php');
+        require ('../PhpMailer/SMTP.php');
 
-        $email->addTo($uemail,$name);
-       
-        $email->addContent(
-            "text/html",
-            "Click the link to confirm you email: <br>
-            <a href='".SITE_URL."email_confirm.php?email_confirmation&email=$uemail&token=$token"."'>
-            Click Here 
-            </a>
-            "
-        );
 
-        $sendgrid = new \SendGrid(SENDGRID_API_KEY);
+        $mail = new PHPMailer(true);
 
-            try{
-                $sendgrid->send($email);
-                return 1;
-            }
-            catch(Exception $e)
-            {
-                return 0;
-            }
+        try {
+            //Server settings
+            
+            $mail->isSMTP();                                            //Send using SMTP
+            $mail->Host       = 'smtp.gmail.com';                     //Set the SMTP server to send through
+            $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
+            $mail->Username   = 'k3992.sajith@gmail.com';                     //SMTP username
+            $mail->Password   = 'oqghlfrartsvzlcm';                               //SMTP password
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
+            $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
+        
+            //Recipients
+            $mail->setFrom('k3992.sajith@gmail.com', 'KaluWeb');
+            $mail->addAddress($uemail,$name);    
+           
+        
+            //Content
+            $mail->isHTML(true);                                  //Set email format to HTML   <a href='email_confirm.php?email=$uemail&token=$token'>Verify</a>
+            $mail->Subject = 'Verification Code -->>';
+            $mail->Body    = "Thanks for registration!
+            Click the link below to verify the email address
+            
+            <a href='".SITE_URL."email_confirm.php?email_confirmation&email=$uemail&token=$token"."'>Verify </a>"
+            ;
+           
+        
+            $mail->send();
+            echo 'Message has been sent';
+            return true;
+        } catch (Exception $e) {
+            echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+            return false;
+        }
+
     }
 
+    
 
 
   if(isset($_POST['register'])){
@@ -83,25 +107,33 @@
         $enc_pass = password_hash($data['pass'],PASSWORD_BCRYPT);
 
         $query = "INSERT INTO `user_cred`(`name`, `email`, `address`, `phonenum`, 
-        `pincode`, `dob`, `profile`, `password`, `token`) 
+        `pincode`, `dob`,`profile`, `password`, `token`) 
          VALUES (?,?,?,?,?,?,?,?,?)";
     
         $values = [$data['name'],$data['email'],$data['address'],$data['phonenum'],
         $data['pincode'],$data['dob'],$img,$enc_pass,$token];
 
         if(insert($query,$values,'sssssssss'))
+        
         {
-            echo 1;
+            echo "<script>
+                alert('Registration Successful');
+                window.location.href='index.php';
+            </script>
+            ";
+            
         }else
         {
-            echo 'ins_faild';
+            echo 
+            "<script>
+                alert('Check back again !!');
+                window.location.href='index.php';
+            </script>
+            ";
         }
 
 
     }    
 
-
-
-
-
 ?>
+
