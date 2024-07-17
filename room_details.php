@@ -171,8 +171,16 @@
           </div>
          area;
 
+          //shutdawn book
+
+          $book_btn ='';
+
+          if(!$settings_r['shutdawn']){
+            $book_btn = "<a href='#' class='btn btn-success w-100 text-white shadow-none mb-1'>Book Now</a>";
+          }
+
          echo<<<book
-            <a href="#" class="btn btn-success w-100 text-white shadow-none mb-1">Book Now</a>
+           $book_btn
          book;
 
            ?>

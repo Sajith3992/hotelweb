@@ -22,7 +22,15 @@
       $settings_r = mysqli_fetch_assoc(select($settings_q,$values,'i'));
 
 
-      
+      if($settings_r['shutdawn']){
+        echo<<<alertbar
+
+        <div class="bg-danger text-center p-2 fm-bold text-white">
+        <i class="bi bi-exclamation-triangle-fill"></i>
+        Booking are Temporary Closed !
+        </div>
+        alertbar;
+      }
 
 
     ?>
