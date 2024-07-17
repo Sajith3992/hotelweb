@@ -8,9 +8,12 @@
     
 
     <?php
-
+      session_start();
+      
       require('admin/inc/db_config.php');
       require('admin/inc/essentials.php');
+
+      date_default_timezone_set("Asia/Colombo");
 
       $contact_q = "SELECT * FROM `contact_details` WHERE `sr_no`=?";
       $settings_q = "SELECT * FROM `setting` WHERE `sr_no`=?";
@@ -19,10 +22,7 @@
       $settings_r = mysqli_fetch_assoc(select($settings_q,$values,'i'));
 
 
-      // $contact_q = "SELECT * FROM `contact_details` WHERE `sr_no`=?";
-      // $values = [1];
-      // $contact_r = mysqli_fetch_assoc(select($contact_q,$values,'i'));
-
+      
 
 
     ?>

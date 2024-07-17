@@ -1,6 +1,6 @@
 <?php
 
-require('inc/essentials.php');
+require('Admin/inc/essentials.php');
 
 session_start();
 session_destroy();

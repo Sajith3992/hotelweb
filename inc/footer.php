@@ -180,7 +180,106 @@
 
       });
 
+      let login_form = document.getElementById('login_form');
 
+      login_form.addEventListener('submit',(e)=>{
+        e.preventDefault();
+
+        let data = new FormData();
+
+        data.append('email_mob',login_form.elements['email_mob'].value);//form input name
+        data.append('pass',login_form.elements['pass'].value);
+
+        data.append('login','');
+
+        var myModal = document.getElementById('loginModal');
+        var modal = bootstrap.Modal.getInstance(myModal);
+        modal.hide();
+
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST","ajax/login_register.php", true);
+        // xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+
+        xhr.onload = function(){
+
+          if(this.responseText == 'inv_email_mob'){
+            alert('error',"Invalid Email or Mobile Number !");
+          }
+          else if(this.responseText == 'not_verified')
+          {
+            alert('error',"Email is not verify !");
+          }
+          else if(this.responseText == 'inactive')
+          {
+            alert('error',"Account Suspend! Please Contact Admin..");
+          }
+          else if(this.responseText == 'invalid_pass')
+          {
+            alert('error',"Incorrect Password Try Again !!");
+          }
+          
+          else{
+            window.location = window.location.pathname;
+          }
+
+        }
+
+        xhr.send(data);
+
+      });
+
+      let forgot_form = document.getElementById('forgot_form');
+
+      forgot_form.addEventListener('submit',(e)=>{
+        e.preventDefault();
+
+        let data = new FormData();
+
+        data.append('email',forgot_form.elements['email'].value);//form input name
+        
+        data.append('forgot_pass','');
+
+        var myModal = document.getElementById('forgotModal');
+        var modal = bootstrap.Modal.getInstance(myModal);
+        modal.hide();
+
+        let xhr = new XMLHttpRequest();
+        xhr.open("POST","ajax/login_register.php", true);
+        // xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+
+
+        xhr.onload = function(){
+
+          if(this.responseText == 'inv_email'){
+            alert('error',"Invalid Email !");
+          }
+          else if(this.responseText == 'not_verified')
+          {
+            alert('error',"Email is not verify ! Contact Admin");
+          }
+          else if(this.responseText == 'inactive')
+          {
+            alert('error',"Account Suspend! Please Contact Admin..");
+          }
+          else if(this.responseText == 'mail_failed')
+          {
+            alert('error',"Cannot send email !!");
+          }
+          else if(this.responseText == 'upd_failed')
+          {
+            alert('error',"Account recovery failed !!");
+          }
+          
+          else{
+            alert('success',"Reset Link send to email !");
+            forgot_form.reset();
+          }
+
+        }
+
+        xhr.send(data);
+
+      });
 
       setActive();
 </script>
