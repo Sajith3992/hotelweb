@@ -133,7 +133,12 @@
             $book_btn ='';
 
             if(!$settings_r['shutdawn']){
-                $book_btn = " <a href='#' class='btn btn-success btn-sm w-100 text-white  shadow-none mb-2'>Book Now</a>";
+              $login = 0;
+
+              if(isset($_SESSION['login'])&& $_SESSION['login']==true){
+                $login=1;
+              }
+                $book_btn = " <button onclick='checkLoginBook($login,$room_data[id])' class='btn btn-success btn-sm w-100 text-white  shadow-none mb-2'>Book Now</button>";
             }
 
             //print room card

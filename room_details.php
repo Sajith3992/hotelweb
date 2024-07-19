@@ -47,6 +47,7 @@
        <div class="col-lg-7 col-md-12 px-4 ">
 
         <div id="roomCarousel" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
           <?php
 
              //get thambnais of image
@@ -75,6 +76,7 @@
              }
 
           ?>
+          </div>
 
           <button class="carousel-control-prev" type="button" data-bs-target="#roomCarousel" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -176,7 +178,13 @@
           $book_btn ='';
 
           if(!$settings_r['shutdawn']){
-            $book_btn = "<a href='#' class='btn btn-success w-100 text-white shadow-none mb-1'>Book Now</a>";
+            $login = 0;
+
+            if(isset($_SESSION['login'])&& $_SESSION['login']==true){
+              $login=1;
+            }
+            
+            $book_btn = "<button onclick='checkLoginBook($login,$room_data[id])' class='btn btn-success w-100 text-white shadow-none mb-1'>Book Now</button>";
           }
 
          echo<<<book

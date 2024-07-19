@@ -70,33 +70,31 @@
 
 <script>
 
-     function alert( type ,msg,position='body'){
-        let bs_class = (type == 'success') ? 'alert-success' : 'alert-danger';
-        let element = document.createElement('div');
+  function alert( type ,msg,position='body'){
+    let bs_class = (type == 'success') ? 'alert-success' : 'alert-danger';
+    let element = document.createElement('div');
 
-        element.innerHTML = `
-            <div class="alert ${bs_class} alert-dismissible fade show " role="alert">
-                <strong class="me-2">${msg}</strong> 
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-            </div>
-        `;
+    element.innerHTML = `
+      <div class="alert ${bs_class} alert-dismissible fade show " role="alert">
+          <strong class="me-2">${msg}</strong> 
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+      `;
 
-        if(position=='body'){
+      if(position=='body'){
             document.body.append(element);
             element.classList.add('custom-alert');
-        }
-        else{
+      }
+      else{
             document.getElementById(position).appendChild(element);
         }
         
-        setTimeout(remAlert , 3000);
-      }
+    setTimeout(remAlert , 3000);
+  }
 
       function remAlert(){
         document.getElementsByClassName('alert')[0].remove();
       }
-
-
 
       function setActive()
       {
@@ -219,7 +217,15 @@
           }
           
           else{
-            window.location = window.location.pathname;
+            //hide the url on title bar (security)
+            let fileurl = window.location.href.split('/').pop().split('?').shift();
+            if(fileurl=='room_details.php'){
+              window.location = window.location.href;
+            }
+            else{
+              window.location = window.location.pathname;
+            }
+            
           }
 
         }
@@ -281,5 +287,15 @@
 
       });
 
+  function checkLoginBook(status,room_id){
+    if(status){
+      window.location.href='confirm_booking.php?id='+room_id;
+    }else
+    {
+      alert('error','Please login to book room');
+    }
+  }
+
       setActive();
+
 </script>
